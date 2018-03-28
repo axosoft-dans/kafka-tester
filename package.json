@@ -1,0 +1,14 @@
+{
+  "name": "kafka-tester",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "dans@axosoft.com",
+  "license": "MIT",
+  "dependencies": {
+    "@axosoft/gk-service": "^0.2.1"
+  },
+  "scripts": {
+    "run-api": "node ./src/public_api/index.js",
+    "run-worker": "node ./src/worker/index.js"
+  }
+}
