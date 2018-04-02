@@ -15,6 +15,8 @@ const gkConfig = {
 
 const stats = {
   message_count: 0,
+  size_average: 0,
+  size_total: 0,
   time_average: 0,
   time_total: 0
 }
@@ -47,10 +49,13 @@ const setupFn = (app, gkKafka, mongoose) => {
       }
     );
 
+    stats.message_count++;
+
     const duration = new Date() - dt;
     stats.time_total += duration;
-    stats.message_count++;
     stats.time_average = stats.time_total / stats.message_count;
+    stats.size_total += size;
+    stats.size_average = stats.size_total / stats.message_count;
 
     console.log(`sent message in ${duration}`);
     res.sendStatus(200);

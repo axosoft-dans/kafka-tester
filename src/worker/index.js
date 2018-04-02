@@ -12,8 +12,37 @@ const gkConfig = {
   useRequestLogger: false
 };
 
+const stats = {
+  k1_message_count: 0,
+  k1_delay_average: 0,
+  k1_delay_total: 0,
+  k2_message_count: 0,
+  k2_delay_average: 0,
+  k2_delay_total: 0
+}
+
 const eventHandler = (message) => {
+  const dt = new Date();
+  const delay = dt - message.timeStamp;
+
   console.log('message', message);
+
+  if (message.event === 'kafka1-event1' || message.event === 'kafka1-event2') {
+    // kafka1
+    stats.k1_message_count++;
+    stats.k1_delay_total += delay;
+    stats.k1_delay_average = stats.k1_delay_total / stats.k1_message_count;
+
+    console.log(`k1: ${stats.k1_message_count} msgs received with ${stats.k1_delay_average} delay`);
+  }
+  else {
+    // kafka2
+    stats.k2_message_count++;
+    stats.k2_delay_total += delay;
+    stats.k2_delay_average = stats.k2_delay_total / stats.k2_message_count;
+  }
+
+  console.log(`k2: ${stats.k2_message_count} msgs received with ${stats.k2_delay_average} delay`);
 };
 
 const messageHandlers = (logger, gkKafka, mongoose) => {
