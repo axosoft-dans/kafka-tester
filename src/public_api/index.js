@@ -27,7 +27,7 @@ const setupFn = (app, gkKafka, mongoose) => {
     const dt = new Date();
 
     const topic = req.query.topic || 'kafka1';
-    const event = req.query.event || 'kafka1-event1';
+    const event = req.query.event || `${topic}-event1`;
     const size = Math.min(parseInt(req.query.size) || 100, 10000);
 
     console.log(`sending '${size}' byte message for '${event}' envent on '${topic}' topic`);
