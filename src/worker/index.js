@@ -25,7 +25,8 @@ const eventHandler = (message) => {
   const dt = new Date();
   const delay = dt - new Date(message.timeStamp);
 
-  console.log('message', message);
+  //console.log('message', message);
+  console.log('delay', delay);
 
   if (message.event === 'kafka1-event1' || message.event === 'kafka1-event2') {
     // kafka1
@@ -33,7 +34,7 @@ const eventHandler = (message) => {
     stats.k1_delay_total += delay;
     stats.k1_delay_average = stats.k1_delay_total / stats.k1_message_count;
 
-    console.log(`k1: ${stats.k1_message_count} msgs received with ${stats.k1_delay_average} delay`);
+    console.log(`k1: ${stats.k1_message_count} msgs received with ${stats.k1_delay_average} avg delay`);
   }
   else {
     // kafka2
@@ -41,7 +42,7 @@ const eventHandler = (message) => {
     stats.k2_delay_total += delay;
     stats.k2_delay_average = stats.k2_delay_total / stats.k2_message_count;
 
-    console.log(`k2: ${stats.k2_message_count} msgs received with ${stats.k2_delay_average} delay`);
+    console.log(`k2: ${stats.k2_message_count} msgs received with ${stats.k2_delay_average} avg delay`);
   }
 };
 
