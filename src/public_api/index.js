@@ -53,7 +53,7 @@ const setupFn = (app, gkKafka, mongoose) => {
     stats.time_average = stats.time_total / stats.message_count;
 
     console.log(`sent message in ${duration}`);
-    res.status(200).send(duration);
+    res.sendStatus(200);
   });
 
   app.get('/api/kafka', (req, res) => {
