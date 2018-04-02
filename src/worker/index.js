@@ -23,7 +23,7 @@ const stats = {
 
 const eventHandler = (message) => {
   const dt = new Date();
-  const delay = dt - message.timeStamp;
+  const delay = dt - new Date(message.timeStamp);
 
   console.log('message', message);
 
@@ -40,9 +40,9 @@ const eventHandler = (message) => {
     stats.k2_message_count++;
     stats.k2_delay_total += delay;
     stats.k2_delay_average = stats.k2_delay_total / stats.k2_message_count;
-  }
 
-  console.log(`k2: ${stats.k2_message_count} msgs received with ${stats.k2_delay_average} delay`);
+    console.log(`k2: ${stats.k2_message_count} msgs received with ${stats.k2_delay_average} delay`);
+  }
 };
 
 const messageHandlers = (logger, gkKafka, mongoose) => {
