@@ -21,7 +21,7 @@ const stats = {
   time_total: 0
 };
 
-const sendMessage = (topic, event, size) => {
+const sendMessage = (gkKafka, topic, event, size) => {
   const dt = new Date();
 
   console.log(`sending '${size}' byte message for '${event}' envent on '${topic}' topic`);
@@ -54,9 +54,9 @@ const sendMessage = (topic, event, size) => {
   console.log(`sent message in ${duration}`);
 };
 
-const foreverSend = (topic, event, size, delay) => {
-  sendMessage(topic, event, size);
-  setTimeout(() => foreverSend(topic, event, size, delay), delay);
+const foreverSend = (gkKafka, topic, event, size, delay) => {
+  sendMessage(gkKafka, topic, event, size);
+  setTimeout(() => foreverSend(gkKafka, topic, event, size, delay), delay);
 }
 
 const setupFn = (app, gkKafka, mongoose) => {
@@ -66,7 +66,7 @@ const setupFn = (app, gkKafka, mongoose) => {
     const event = req.query.event || `${topic}-event1`;
     const size = Math.min(parseInt(req.query.size) || 100, 10000);
 
-    sendMessage(topic, event, size);
+    sendMessage(gkKafka, topic, event, size);
 
     res.sendStatus(200);
   });
@@ -77,7 +77,7 @@ const setupFn = (app, gkKafka, mongoose) => {
     const size = Math.min(parseInt(req.query.size) || 100, 10000);
     const delay = Math.min(parseInt(req.query.delay) || 10, 60000);
 
-    foreverSend(topic, event, size, delay);
+    foreverSend(gkKafka, topic, event, size, delay);
   });
 
   app.get('/api/kafka', (req, res) => {
