@@ -25,8 +25,7 @@ const eventHandler = (message) => {
   const dt = new Date();
   const delay = dt - new Date(message.timeStamp);
 
-  //console.log('message', message);
-  console.log('delay', delay);
+  console.log(`message ${message.data.id} received after ${delay}ms`);
 
   if (message.event === 'kafka1-event1' || message.event === 'kafka1-event2') {
     // kafka1
